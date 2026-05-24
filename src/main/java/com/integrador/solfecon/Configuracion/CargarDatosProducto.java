@@ -94,7 +94,7 @@ public class CargarDatosProducto implements CommandLineRunner {
         // Línea 11 (Abrasivos) -> Promo 4
         procesarLote(listaProductos, 11, 4, new String[][]{
                 {"Aditivo Impermeabilizante", "989941.00"}, {"Bloqueador Humedad 1 gal", "261481.00"},
-                {"Repelente ecológico", "26061.00"}, {"Insecticida Aerosol", "16541.00"}, {"Herbicida Panzer 480 Ml", "17731.00"}
+                    {"Repelente ecológico", "26061.00"}, {"Insecticida Aerosol", "16541.00"}, {"Herbicida Panzer 480 Ml", "17731.00"}
         });
 
         // Línea 12 (Herrajes) -> Promo 4

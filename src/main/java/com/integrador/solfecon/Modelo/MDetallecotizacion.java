@@ -1,14 +1,16 @@
 package com.integrador.solfecon.Modelo;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
+
 @Entity
 @Table(name = "detallecotizacion")
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MDetallecotizacion {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer iddetallecotizacion;
 
     @Column(nullable = false)
@@ -23,19 +25,20 @@ public class MDetallecotizacion {
     @Column(nullable = false, precision = 10, scale = 2)
     BigDecimal preciounitario;
 
-    //Relaciones
-
+    // ✅ Campo "mProducto" — referenciado por mappedBy en MProducto
     @ManyToOne
-    @JoinColumn(name="pkdetallecotizacionproducto",referencedColumnName = "idproducto")
-    @JsonBackReference
+    @JoinColumn(name = "pkdetallecotizacionproducto", referencedColumnName = "idproducto")
+    @JsonIgnoreProperties("mDetallecotizacion")
     MProducto mProducto;
 
+    // ✅ Campo "mCotizacion" — referenciado por mappedBy en MCotizacion
     @ManyToOne
-    @JoinColumn(name="pkdetallecotizacioncotizacion",referencedColumnName = "idcotizacion")
-    @JsonBackReference
+    @JoinColumn(name = "pkdetallecotizacioncotizacion", referencedColumnName = "idcotizacion")
+    @JsonIgnoreProperties("mDetallecotizacion")
     MCotizacion mCotizacion;
 
-    public MDetallecotizacion(Integer iddetallecotizacion, Integer idcotizacion, Integer idproducto, Integer cantidad, BigDecimal preciounitario) {
+    public MDetallecotizacion(Integer iddetallecotizacion, Integer idcotizacion,
+                              Integer idproducto, Integer cantidad, BigDecimal preciounitario) {
         this.iddetallecotizacion = iddetallecotizacion;
         this.idcotizacion = idcotizacion;
         this.idproducto = idproducto;
@@ -43,46 +46,16 @@ public class MDetallecotizacion {
         this.preciounitario = preciounitario;
     }
 
-    public MDetallecotizacion() {
-    }
+    public MDetallecotizacion() {}
 
-    public Integer getIddetallecotizacion() {
-        return iddetallecotizacion;
-    }
-
-    public void setIddetallecotizacion(Integer iddetallecotizacion) {
-        this.iddetallecotizacion = iddetallecotizacion;
-    }
-
-    public Integer getIdcotizacion() {
-        return idcotizacion;
-    }
-
-    public void setIdcotizacion(Integer idcotizacion) {
-        this.idcotizacion = idcotizacion;
-    }
-
-    public Integer getIdproducto() {
-        return idproducto;
-    }
-
-    public void setIdproducto(Integer idproducto) {
-        this.idproducto = idproducto;
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public BigDecimal getPreciounitario() {
-        return preciounitario;
-    }
-
-    public void setPreciounitario(BigDecimal preciounitario) {
-        this.preciounitario = preciounitario;
-    }
+    public Integer getIddetallecotizacion() { return iddetallecotizacion; }
+    public void setIddetallecotizacion(Integer v) { this.iddetallecotizacion = v; }
+    public Integer getIdcotizacion() { return idcotizacion; }
+    public void setIdcotizacion(Integer v) { this.idcotizacion = v; }
+    public Integer getIdproducto() { return idproducto; }
+    public void setIdproducto(Integer v) { this.idproducto = v; }
+    public Integer getCantidad() { return cantidad; }
+    public void setCantidad(Integer v) { this.cantidad = v; }
+    public BigDecimal getPreciounitario() { return preciounitario; }
+    public void setPreciounitario(BigDecimal v) { this.preciounitario = v; }
 }

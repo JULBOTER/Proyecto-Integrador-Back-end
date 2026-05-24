@@ -87,7 +87,7 @@ public MPromocion adicionarPromocion(MPromocion mPromocion) throws Exception {
             Optional<MPromocion> registroEncontrado=iPromocion.findById(idpromocion);
             if (registroEncontrado.isPresent()){
                 MPromocion nuevoRegistro=registroEncontrado.get();
-                nuevoRegistro.setIdPromocion(mPromocion.getIdPromocion());
+                nuevoRegistro.setIdpromocion(mPromocion.getIdpromocion());
                 nuevoRegistro.setDescripcionprom(mPromocion.getDescripcionprom());
                 nuevoRegistro.setImagen(mPromocion.getImagen());
                 nuevoRegistro.setDescuento(mPromocion.getDescuento());

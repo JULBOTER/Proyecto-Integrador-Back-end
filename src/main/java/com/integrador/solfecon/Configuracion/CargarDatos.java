@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class CargarDatos implements CommandLineRunner {
 
     private final ILinea lineaRepositorio;

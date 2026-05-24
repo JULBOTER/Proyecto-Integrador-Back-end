@@ -43,11 +43,11 @@ public class MPromocion {
     //Encapsulamiento
 
 
-    public Integer getIdPromocion() {
+    public Integer getIdpromocion() {
         return idpromocion;
     }
 
-    public void setIdPromocion(Integer idpromocion) {
+    public void setIdpromocion(Integer idpromocion) {
         this.idpromocion = idpromocion;
     }
 

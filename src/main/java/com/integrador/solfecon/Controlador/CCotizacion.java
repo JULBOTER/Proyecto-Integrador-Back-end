@@ -15,9 +15,24 @@ public class CCotizacion {
     @Autowired
     SCotizacion sCotizacion;
 
-    // Consulta individual por Id
+    // POST /cotizacion
+    // CORRECCIÓN: faltaba este endpoint — el servicio existía pero no estaba expuesto
+    @PostMapping
+    public ResponseEntity<?> guardarCotizacion(@RequestBody MCotizacion mCotizacion) {
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(this.sCotizacion.adicionarCotizacion(mCotizacion));
+        } catch (Exception error) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(error.getMessage());
+        }
+    }
+
+    // GET /cotizacion/{idcotizacion}
     @GetMapping("/{idcotizacion}")
-    public ResponseEntity<?> consultaIndividualId(@PathVariable Integer idcotizacion) throws Exception {
+    public ResponseEntity<?> consultaIndividualId(@PathVariable Integer idcotizacion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -29,9 +44,9 @@ public class CCotizacion {
         }
     }
 
-    // Consulta por cliente
+    // GET /cotizacion/cliente/{idecliente}
     @GetMapping("/cliente/{idecliente}")
-    public ResponseEntity<?> consultaIndividualIdecliente(@PathVariable String idecliente) throws Exception {
+    public ResponseEntity<?> consultaIndividualIdecliente(@PathVariable String idecliente) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -43,9 +58,10 @@ public class CCotizacion {
         }
     }
 
-    // Modificar cotizacion
+    // PUT /cotizacion/{idcotizacion}
     @PutMapping("/{idcotizacion}")
-    public ResponseEntity<?> modificarCotizacion(@PathVariable Integer idcotizacion, @RequestBody MCotizacion mCotizacion) throws Exception {
+    public ResponseEntity<?> modificarCotizacion(@PathVariable Integer idcotizacion,
+                                                 @RequestBody MCotizacion mCotizacion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -57,23 +73,18 @@ public class CCotizacion {
         }
     }
 
-// eliminar  cotizacion
-
-    @DeleteMapping("{idcotizacion}")
-
-    public ResponseEntity<?> eliminarCotizacion(Integer idcotizacion) throws Exception{
-
+    // DELETE /cotizacion/{idcotizacion}
+    // CORRECCIÓN: se agregó la barra "/" y la anotación @PathVariable
+    @DeleteMapping("/{idcotizacion}")
+    public ResponseEntity<?> eliminarCotizacion(@PathVariable Integer idcotizacion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(this.sCotizacion.eliminarCotizacion(idcotizacion));
-        }catch (Exception error){
+        } catch (Exception error) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
-
         }
-
     }
-
 }

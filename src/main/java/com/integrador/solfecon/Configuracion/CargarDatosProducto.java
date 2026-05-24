@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 @Order(3) // Se ejecuta de último, después de Líneas (Order 2) y Promociones (Order 1)
 public class CargarDatosProducto implements CommandLineRunner {
 

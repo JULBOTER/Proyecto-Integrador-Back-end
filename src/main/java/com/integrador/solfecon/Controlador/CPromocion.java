@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/promocion")
 @CrossOrigin(origins = "*")
-
 public class CPromocion {
 
     @Autowired
     SPromocion sPromocion;
 
-    // Metodo para el EndPoint de adicionar una promocion
-
+    // POST /promocion
     @PostMapping
-    public ResponseEntity<?> guardarPromocion(@RequestBody MPromocion mPromocion) throws Exception {
+    public ResponseEntity<?> guardarPromocion(@RequestBody MPromocion mPromocion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -31,8 +29,9 @@ public class CPromocion {
         }
     }
 
+    // GET /promocion
     @GetMapping
-    public ResponseEntity<?> consultaGeneralPromocion() throws Exception {
+    public ResponseEntity<?> consultaGeneralPromocion() {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -44,9 +43,9 @@ public class CPromocion {
         }
     }
 
-    // Consulta individual por Id
+    // GET /promocion/{idpromocion}
     @GetMapping("/{idpromocion}")
-    public ResponseEntity<?> consultaIndividualId(@PathVariable Integer idpromocion) throws Exception {
+    public ResponseEntity<?> consultaIndividualId(@PathVariable Integer idpromocion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -58,9 +57,9 @@ public class CPromocion {
         }
     }
 
-    // Consulta individual por descripcion
+    // GET /promocion/descripcionprom/{descripcionprom}
     @GetMapping("/descripcionprom/{descripcionprom}")
-    public ResponseEntity<?> consultaIndividualPromocion(@PathVariable String descripcionprom) throws Exception {
+    public ResponseEntity<?> consultaIndividualPromocion(@PathVariable String descripcionprom) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -69,14 +68,13 @@ public class CPromocion {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
-
-
         }
     }
 
-    // Modificar promocion
+    // PUT /promocion/{idpromocion}
     @PutMapping("/{idpromocion}")
-    public ResponseEntity<?> modificarPromocion(@PathVariable Integer idpromocion, @RequestBody MPromocion mPromocion) throws Exception {
+    public ResponseEntity<?> modificarPromocion(@PathVariable Integer idpromocion,
+                                                @RequestBody MPromocion mPromocion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -85,28 +83,21 @@ public class CPromocion {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
-
-
         }
     }
 
-    //Eliminar un promocion
-    @DeleteMapping("{idpromocion}")
-
-    public ResponseEntity<?> eliminarPromocion(Integer idpromocion) throws Exception{
-
+    // DELETE /promocion/{idpromocion}
+    // CORRECCIÓN: se agregó la barra "/" y la anotación @PathVariable
+    @DeleteMapping("/{idpromocion}")
+    public ResponseEntity<?> eliminarPromocion(@PathVariable Integer idpromocion) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(this.sPromocion.eliminarPromocion(idpromocion));
-        }catch (Exception error){
+        } catch (Exception error) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
-
         }
-
     }
-
 }
-

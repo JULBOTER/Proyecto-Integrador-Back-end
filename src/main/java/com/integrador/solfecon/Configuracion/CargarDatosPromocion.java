@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 @Order(1) // Es vital que las promociones se carguen primero o al mismo tiempo que las líneas
 
 public class CargarDatosPromocion implements CommandLineRunner {
@@ -58,7 +58,7 @@ public class CargarDatosPromocion implements CommandLineRunner {
             MPromocion promo = new MPromocion();
 
             // Asignamos los campos usando los setters de tu modelo
-            promo.setIdPromocion(null); // ID null para Auto-incremental
+            promo.setIdpromocion(null); // ID null para Auto-incremental
             promo.setDescripcionprom(nombresPromos[i]);
             promo.setImagen(rutasImagenes[i]);
             promo.setDescuento(new BigDecimal(porcentajesDescuento[i]));

@@ -7,47 +7,45 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/producto")
 @CrossOrigin(origins = "*")
-
 public class CProducto {
 
-@Autowired
-SProducto sProducto;
+    @Autowired
+    SProducto sProducto;
 
-    // Metodo para el EndPoint de adicionar un producto
+    // POST /producto
     @PostMapping
-    public ResponseEntity<?> guardarProducto(@RequestBody MProducto mProducto) throws Exception{
-        try{
+    public ResponseEntity<?> guardarProducto(@RequestBody MProducto mProducto) {
+        try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(this.sProducto.adicionarProducto(mProducto));
-        }catch (Exception error){
+        } catch (Exception error) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
         }
     }
 
-    // Consulta general
+    // GET /producto
     @GetMapping
-    public ResponseEntity<?> consultaGeneralProducto() throws Exception{
-        try{
+    public ResponseEntity<?> consultaGeneralProducto() {
+        try {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(this.sProducto.consultaGeneralProducto());
-        }catch (Exception error){
+        } catch (Exception error) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
         }
     }
 
-    // Consulta individual por Id
+    // GET /producto/{idproducto}
     @GetMapping("/{idproducto}")
-    public ResponseEntity<?> consultaIndividualId(@PathVariable Integer idproducto) throws Exception {
+    public ResponseEntity<?> consultaIndividualId(@PathVariable Integer idproducto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -59,9 +57,11 @@ SProducto sProducto;
         }
     }
 
-    // Consulta individual por descripcion
+    // GET /producto/descripcion/{descripcion}
+    // CORRECCIÓN: el @PathVariable tenía nombre incorrecto (descripcionproducto en vez de descripcion)
+    // lo que causaba que Spring no pudiera mapear el parámetro de la URL
     @GetMapping("/descripcion/{descripcion}")
-    public ResponseEntity<?> consultaIndividualLinea(@PathVariable String descripcionproducto) throws Exception {
+    public ResponseEntity<?> consultaIndividualProducto(@PathVariable("descripcion") String descripcionproducto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -73,39 +73,33 @@ SProducto sProducto;
         }
     }
 
-    // Modificar producto
+    // PUT /producto/{idproducto}
     @PutMapping("/{idproducto}")
-    public ResponseEntity<?> modificarProducto(@PathVariable Integer idproducto, @RequestBody MProducto mProducto) throws Exception {
+    public ResponseEntity<?> modificarProducto(@PathVariable Integer idproducto,
+                                               @RequestBody MProducto mProducto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(this.sProducto.modificarProducto(idproducto,mProducto));
+                    .body(this.sProducto.modificarProducto(idproducto, mProducto));
         } catch (Exception error) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
-
-
         }
     }
 
-    //Eliminar un producto
-    @DeleteMapping("{idproducto}")
-
-    public ResponseEntity<?> eliminarProducto(Integer idproducto) throws Exception{
-
+    // DELETE /producto/{idproducto}
+    // CORRECCIÓN: se agregó la barra "/" y la anotación @PathVariable
+    @DeleteMapping("/{idproducto}")
+    public ResponseEntity<?> eliminarProducto(@PathVariable Integer idproducto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(this.sProducto.eliminarProducto(idproducto));
-        }catch (Exception error){
+        } catch (Exception error) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(error.getMessage());
-
         }
-
     }
-
-
 }
